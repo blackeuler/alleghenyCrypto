@@ -91,11 +91,19 @@ def CRT(a, m):
     from functools import reduce
     x = 0
     product = reduce(lambda a, b: a*b, m)
-    for i,m in enumerate(m):
+    for i, m in enumerate(m):
         z = product//m
         print(f"z = {product}/{m} = {z}")
-        y = mInverse(z,m)
+        y = mInverse(z, m)
         print(f"y = {z}^-1modm = {y}")
         x += a[i]*z*y
         print(f"x = {x}")
     return x % product
+
+
+def toNum(char):
+    return ord(char) % 97
+
+
+def toLetter(num):
+    return chr(num + 97)
