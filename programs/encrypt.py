@@ -12,7 +12,7 @@ def shift(plaintext="test", key=3):
 
 def affine(plaintext="affine", alpha=9, beta=2):
     if gcd(alpha, 26) != 1:
-        raise Exception("The gcd(alpha,26) is not 1")
+        raise Exception "The gcd(alpha,26) is not 1"
     plaintext = plaintext.lower()
     cipher = ""
     for char in plaintext:
