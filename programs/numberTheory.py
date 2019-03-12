@@ -107,3 +107,58 @@ def toNum(char):
 
 def toLetter(num):
     return chr(num + 97)
+
+def randMatrix(dimension):
+    import random
+    ones = [[1]*dimension for i in range(dimension)]
+    for i in range(dimension):
+        for j in range(dimension):
+            ones[i][j] = random.randint(1,26)
+    return ones
+
+def matrixMultiply(matrix1, matrix2):
+    result=[][]
+    for i in range(len(matrix1)):
+        for j in range(len(matrix1)):
+            result[i][j] = 
+
+def gaussianElim(matrix):
+    n = len(matrix)
+    for col in range(n):
+        print("Column:"+str(col))
+        print(matrix)
+        for row in range(col,n):
+            if(matrix[row][col]):
+                if(row != col):
+                    print("Swapping")
+                    matrix[row],matrix[col] = matrix[col],matrix[row]
+                    print(matrix) 
+                else:
+                    print("Not Swapping")
+                break
+        for row in range(col+1,n):
+            while True:
+                delw = matrix[row][col]/matrix[col][col]
+                for j in range(col,n):
+                    matrix[row][col] = matrix[row][col] - (delw * matrix[col][j])
+                if (matrix[row][col]==0):
+                    break
+                else:
+                    print("Swapping")
+                    
+                    matrix[row],matrix[col] = matrix[col],matrix[row]
+                    
+                    print(matrix)
+    return matrix
+    # May the heavens forgive me for going down this rabbit hole
+
+def bareiss(matrix):
+        n = len(matrix)
+        for i in range(n-1):
+            for j in range(i+1,n):
+                for k in range(i+1,n):
+                    matrix[j][k] = matrix[j][k] *matrix[i][i] - matrix[j][i]*matrix[i][k]
+                    if(i):
+                        matrix[j][k] /= matrix[i-1][i-1]
+        return matrix[n-1][n-1]
+test = [[-2,2,-3],[-1,1,3],[2,0,1]]

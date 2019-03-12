@@ -1,4 +1,5 @@
 from numberTheory import mInverse,toLetter,toNum
+import numpy as np
 
 def shift(cipher="whvw", key=3):
     plaintext = ""
@@ -22,3 +23,5 @@ def vigenere(cipher="citxwjcsybhnjvml", key="vector"):
         d = toNum(char)
         plaintext += toLetter((d-shift) % 26)
     return plaintext
+
+def hill(cipher = "zwseniuspljveu",)
