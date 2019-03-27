@@ -1,4 +1,4 @@
-from numberTheory import gcd, toLetter, toNum, randMatrix
+from numberTheory import gcd, toLetter, toNum, buildMatrix, matrixMultiply
 
 
 def shift(plaintext="test", key=3):
@@ -30,14 +30,22 @@ def vigenere(plaintext="hereishowitworks", key="vector"):
         cipher += toLetter((d+shift) % 26)
     return cipher
 
-def hill(plaintext="howareyou",key=3):
-    plaintext.lower()
+def hill(plaintext="CAT",key="GYBNQKURP", block_size=3):
+    if len(key)%block_size !=0:
+        raise Exception("Matrix Size error")
+    plaintext = plaintext.lower()
+    key = key.lower()
+    keyMatrix = buildMatrix(key,block_size)
+    
     numbers=[]
     for letter in plaintext:
         numbers.append(toNum(letter))
-    numbersArray = [numbers[i:i+key] for i in range(0, len(numbers),key)]
+    numbers = [numbers[i:i+block_size] for i in range(0, len(numbers),block_size)]
+    for plain_block in range(len(numbers)):
+        vTranspose = [[item] for item in numbers[plain_block]]
+        numbers[plain_block] = matrixMultiply(keyMatrix,vTranspose)
     print(numbers)
-    print(numbersArray)
-    keyM = randMatrix(key)
-    
-    cipher = ""
+    cipher = [toLetter(num%26) for sublist in numbers for liste in sublist for num in liste]
+    print(numbers)
+    print(cipher)
+hill()

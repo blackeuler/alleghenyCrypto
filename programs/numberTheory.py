@@ -116,11 +116,38 @@ def randMatrix(dimension):
             ones[i][j] = random.randint(1,26)
     return ones
 
-def matrixMultiply(matrix1, matrix2):
-    result=[][]
-    for i in range(len(matrix1)):
-        for j in range(len(matrix1)):
-            result[i][j] = 
+def buildMatrix(key,dim):
+    assert len(key) % dim ==0
+    index = 0
+    matrix = randMatrix(dim)
+    for row in range(len(matrix)):
+        for col in range(len(matrix[row])):
+            matrix[row][col] = toNum(key[index])
+            index=index +1
+    return matrix
+
+def matrixMultiply(A, B):
+    print("This is matrix A")
+    print(A)
+    print("This is matrix B")
+    print(B)
+    bRows,aRows,aCols,bCols = len(B),len(A),len(A[0]),len(B[0])
+    print(f"B:{bRows}x{bCols} \n A:{aRows}x{aCols} ")
+    if bRows != aCols:
+        print(f"B:{bRows}x{bCols} \n A:{aRows}x{aCols} ")
+        raise Exception("Num of Col needs to match Num of Rows")
+    result = [[0 for i in range(bCols)] for j in range(aRows)]
+    print(result)
+    for row in range(aRows):
+        for col in range(bCols):
+            for i in range(aRows):
+                print(f"Row{row}  Col {col} i:{i} ")
+                try:
+                    result[row][col] += A[row][i]*B[i][col]
+                except IndexError:
+                    print("Threw Exception")
+                    print(f"Row{row}  Col {col} i:{i} ")
+    return result
 
 def gaussianElim(matrix):
     n = len(matrix)
