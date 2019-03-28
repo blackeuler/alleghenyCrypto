@@ -44,8 +44,6 @@ def hill(plaintext="CAT",key="GYBNQKURP", block_size=3):
     for plain_block in range(len(numbers)):
         vTranspose = [[item] for item in numbers[plain_block]]
         numbers[plain_block] = matrixMultiply(keyMatrix,vTranspose)
-    print(numbers)
     cipher = [toLetter(num%26) for sublist in numbers for liste in sublist for num in liste]
-    print(numbers)
-    print(cipher)
+    return "".join(cipher)
 hill()
