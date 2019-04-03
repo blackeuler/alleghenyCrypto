@@ -28,27 +28,25 @@ def extendedEuclidean(a, b):
     e_y = None
     while(a % b != 0):
         quotient, remainder = a//b, a % b
-        print(f"{a} = {b} x {quotient} + {remainder}")
+        #print(f"{a} = {b} x {quotient} + {remainder}")
         e_y = -quotient*y[1] + y[0]
         e_x = -quotient*x[1] + x[0]
-        print(f"e_x = -{quotient} x {x[1]} + {x[0]}")
+        #print(f"e_x = -{quotient} x {x[1]} + {x[0]}")
         x[0] = x[1]
         x[1] = e_x
         y[0] = y[1]
         y[1] = e_y
         a, b = b, a % b
-    return e_x, e_y
+    return (e_y, e_x)
 
 
 def mInverse(a, n):
     """
     Finds the inverse of a integer modn
     """
-
-    for i in range(0, n):
-        if (a*i) % n == 1:
-            return i
-    return -1
+    assert gcd(a,n)==1
+    x,y = extendedEuclidean(a,n)
+    return x%n
 
 
 def modEquation(a, b, n):
@@ -78,7 +76,19 @@ def modExp(y, x, n):
             a, b, c = a-1, (b*c) % n, c
     return b
 
-
+def binaryModExp(y,x,n):
+    binary = bin(x)
+    s = [1,]
+    r = [0 for i in range(len(binary[2:]))]
+    for index ,i in enumerate(binary[2:]):
+        if index == len(binary[2:]):
+            break
+        if i == '1':
+            r[index] = (s[index]*y)%n
+        elif i =='0':
+            r[index] =  s[index]
+        s.append((r[index]**2)%n)
+    return r[-1]
 def CRT(a, m):
     """
     Returns the integer solution to the system a congruences
@@ -181,3 +191,4 @@ def bareiss(matrix):
                         matrix[j][k] /= matrix[i-1][i-1]
         return matrix[n-1][n-1]
 test = [[-2,2,-3],[-1,1,3],[2,0,1]]
+
