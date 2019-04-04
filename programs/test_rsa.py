@@ -15,3 +15,7 @@ def test_generateExp():
 def test_decrypt(p,q,e,cipher,decrypted):
     rsa = RSA(p,q,e)
     assert rsa.decrypt(cipher) == decrypted
+
+def test_toNum():
+    rsa = RSA()
+    assert rsa.toNum("cat") == 121029 

@@ -44,11 +44,24 @@ class RSA():
         return d
     def encrypt(plaintext, sender_public_key):
         # plaintext to number
-        #return message ** e mod n
-        #
-        pass
+        message = self.toNum(plaintext)
+        e = sender_public_key[1]
+        n = sender_public_key[0]
+        return binaryModExp(message,e,n)
+        
 
     def decrypt(self,cipher):
          return binaryModExp(cipher,self._RSA__secret_key[2],self.public_key[0])%self.public_key[0] 
         
-        
+    def toNum(self,plaintext):
+        s=''
+        for i in plaintext:
+           s += str(ord(i)%96+9)
+        return int(s)
+
+    def toLetters(self, numbers):
+        letters = ''
+        numbers = str(numbers)
+        for i,k in zip(numbers[0::2], numbers[1::2]):
+            letters += chr(int(str(i+k))-9+96)
+        return letters
