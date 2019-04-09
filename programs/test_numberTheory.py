@@ -1,4 +1,4 @@
-from numberTheory import mInverse, extendedEuclidean,modExp, binaryModExp
+from numberTheory import mInverse, extendedEuclidean,modExp, binaryModExp,erato
 import pytest
 
 @pytest.mark.parametrize("a,n,aInverse",
@@ -51,3 +51,12 @@ def test_modExp(y,x,n,b):
 )
 def test_binaryModExp(y,x,n,b):
     assert binaryModExp(y,x,n) == b
+@pytest.mark.parametrize("limit,listPrimes",
+[
+    (3,[2]),
+    (30,[2,3,5,7,11,13,17,19,23,29]),
+    (100,[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97])
+]
+)
+def test_erato(limit,listPrimes):
+    assert erato(limit) == listPrimes

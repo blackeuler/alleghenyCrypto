@@ -1,3 +1,4 @@
+from math import sqrt
 def gcd(a, b):
     """
     Returns the greatest common denominator of a and b
@@ -192,3 +193,22 @@ def bareiss(matrix):
         return matrix[n-1][n-1]
 test = [[-2,2,-3],[-1,1,3],[2,0,1]]
 
+def erato(limit):
+    """
+    Returns a list of primes < limit
+    Parameters:
+    limit (int):Positive Integer
+    Returns:
+    primes (list):list of primes less than limit
+    """
+    output = []
+    primes = limit * [True]
+    primes[0] = primes[1] = [False]
+    for count in range(int(sqrt(limit))+1):
+        if primes[count] is True:
+            for j in range(count**2,limit,count):
+                primes[j] = False
+    for count, i in enumerate(primes):
+        if i is True:
+            output.append(count)
+    return output

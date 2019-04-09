@@ -1,6 +1,6 @@
 from random import randint
 from primality import fermats
-from numberTheory import mInverse,binaryModExp
+from numberTheory import mInverse,binaryModExp,erato
 class RSA():
     __secret_key = ()
     public_key = ()
@@ -21,14 +21,14 @@ class RSA():
         self._RSA__secret_key = (p,q,d)
         print(f"Secret Primes:{p},{q} Decryption Exponent:{d}")
         self.public_key = (N,e)
-
+        print(f"Public Key:{N} and {e}")
 
 
     def generatePrimes(self):
         #generate 2 random number
         p,q = randint(200,500),randint(200,500)
         #test for primality
-        while not fermats(p) and fermats(q):
+        while not fermats(p) or not fermats(q):
             if not fermats(p):
                 p = randint(200,500)
             if not fermats(q):
@@ -65,3 +65,16 @@ class RSA():
         for i,k in zip(numbers[0::2], numbers[1::2]):
             letters += chr(int(str(i+k))-9+96)
         return letters
+
+def attack(n):
+    primes = erato(n)
+    for prime in primes:
+        if n%prime ==0:
+            return prime
+
+def attack2(m):
+    from math import sqrt
+    lim = int(sqrt(m))+1
+    for i in range(3,lim,2):
+        if m%i ==0:
+            return i
